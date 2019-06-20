@@ -12,7 +12,7 @@ public class MovementController
         this.rb2d = rb2d;
     }
 
-    internal void MoveTowards(Vector2 moveAxis)
+    public void MoveTowards(Vector2 moveAxis)
     {
         rb2d.velocity = moveAxis;
     }
