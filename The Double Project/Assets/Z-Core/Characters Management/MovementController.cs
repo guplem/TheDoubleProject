@@ -14,10 +14,17 @@ public class MovementController
 
     public void MoveTowards(Vector2 direction, Vector2 acceleration, Vector2 maxVelocity)
     {
-        Vector2 velocity = rb2d.velocity;
+        Vector2 targetVelocity = rb2d.velocity + direction * acceleration;
+        SetVelocity(new Vector2(Mathf.Clamp(targetVelocity.x, -maxVelocity.x, maxVelocity.x), Mathf.Clamp(targetVelocity.y, -maxVelocity.y, maxVelocity.y)));
+    }
 
-        velocity += new Vector2(acceleration.x * direction.x, acceleration.y * direction.y);
-        SetVelocity(new Vector2(Mathf.Clamp(velocity.x, -maxVelocity.x, maxVelocity.x), Mathf.Clamp(velocity.y, -maxVelocity.y, maxVelocity.y)));
+    public void TargetVelocity(Vector2 targetVecloity, Vector2 acceleration)
+    {
+        Vector2 currentVelocity = rb2d.velocity;
+
+        Vector2 targetVector = targetVecloity - currentVelocity;
+
+        SetVelocity(currentVelocity + new Vector2(acceleration.x * targetVector.x, acceleration.y * targetVector.y));
     }
 
     public void Impulse(Vector2 force)
@@ -37,6 +44,11 @@ public class MovementController
     public void SetVertVelocity(float vert)
     {
         SetVelocity(new Vector2(rb2d.velocity.x, vert));
+    }
+
+    public Vector2 GetVelocity()
+    {
+        return rb2d.velocity;
     }
 
 }

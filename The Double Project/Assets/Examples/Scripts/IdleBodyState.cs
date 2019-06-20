@@ -12,7 +12,7 @@ public class IdleBodyState : State
 
     public override void DoFixedUpdate(float fixedDeltaTime)
     {
-        Debug.Log("Idle");
+        
     }
 
     public override void DoStart()
