@@ -11,7 +11,7 @@ public class ExampleCharacterManager : CharacterManager
     protected override void DoStart()
     {
         brainController = new BrainController(new PlayerInput(), this) ;
-        stateController = new StateController(new WalkState(), this) ;
+        stateController = new ExampleStateController().SetUp(new IdleState(), new IdleState(), this);
         movementController = new MovementController(GetComponent<Rigidbody2D>());
     }
 }

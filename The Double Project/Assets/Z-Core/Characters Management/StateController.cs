@@ -3,26 +3,36 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StateController
+public abstract class StateController
 {
-    private State defaultState;
+    private State defaultBodyState;
+    private State defaultLegsState;
     private CharacterManager character;
+    public State bodyState { get; private set; }
+    public State legsState { get; private set; }
 
-    public StateController(State defaultState, CharacterManager character)
+    public StateController SetUp(State defaultBodyState, State defaultLegsState, CharacterManager character)
     {
-        this.defaultState = defaultState;
+        this.defaultBodyState = defaultBodyState;
+        this.defaultLegsState = defaultLegsState;
         this.character = character;
 
-        SetState(defaultState);
+        return this;
     }
 
-    private void SetState(State state)
+    private void SetBodyState(State state)
     {
-        this.state = state;
-        this.state.DoStart(this.character);
+        this.bodyState = state;
+        this.bodyState.DoStart(this.character);
     }
 
-    public State state { get; private set; }
+    private void SetLegsState(State state)
+    {
+        this.legsState = state;
+        this.legsState.DoStart(this.character);
+    }
 
+    public abstract State GetNextBodyState(bool forceExitCurrentState);
+    public abstract State GetNextLegsState(bool forceExitCurrentState);
 
 }

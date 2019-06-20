@@ -23,12 +23,14 @@ public abstract class CharacterManager : MonoBehaviour
 
     private void Update()
     {
-        stateController.state.DoUpdate(Time.deltaTime);
+        stateController.bodyState.DoUpdate(Time.deltaTime);
+        stateController.legsState.DoUpdate(Time.deltaTime);
         brainController.DoUpdate();
     }
 
     private void FixedUpdate()
     {
-        stateController.state.DoFixedUpdate(Time.fixedDeltaTime);
+        stateController.bodyState.DoFixedUpdate(Time.fixedDeltaTime);
+        stateController.legsState.DoFixedUpdate(Time.fixedDeltaTime);
     }
 }
