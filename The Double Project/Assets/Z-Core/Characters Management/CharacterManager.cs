@@ -11,6 +11,7 @@ public abstract class CharacterManager : MonoBehaviour
     public abstract MovementController movementController { get; set; }
     public SoundController soundController;
     [SerializeField] public ColliderController groundCollider;
+    public CharacterProperties characterProperties;
 
     public void Start()
     {
@@ -26,6 +27,8 @@ public abstract class CharacterManager : MonoBehaviour
         stateController.bodyState.DoUpdate(Time.deltaTime);
         stateController.legsState.DoUpdate(Time.deltaTime);
         brainController.DoUpdate();
+        stateController.SetBodyState(stateController.GetNextBodyState(false));
+        stateController.SetLegsState(stateController.GetNextLegsState(false));
     }
 
     private void FixedUpdate()

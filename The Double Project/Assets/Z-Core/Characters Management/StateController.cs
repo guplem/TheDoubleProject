@@ -5,9 +5,9 @@ using UnityEngine;
 
 public abstract class StateController
 {
-    private State defaultBodyState;
-    private State defaultLegsState;
-    private CharacterManager character;
+    protected State defaultBodyState;
+    protected State defaultLegsState;
+    protected CharacterManager character;
     public State bodyState { get; private set; }
     public State legsState { get; private set; }
 
@@ -15,18 +15,22 @@ public abstract class StateController
     {
         this.defaultBodyState = defaultBodyState;
         this.defaultLegsState = defaultLegsState;
+
+        this.bodyState = this.defaultBodyState;
+        this.legsState = this.defaultLegsState;
+
         this.character = character;
 
         return this;
     }
 
-    private void SetBodyState(State state)
+    public void SetBodyState(State state)
     {
         this.bodyState = state;
         this.bodyState.DoStart(this.character);
     }
 
-    private void SetLegsState(State state)
+    public void SetLegsState(State state)
     {
         this.legsState = state;
         this.legsState.DoStart(this.character);

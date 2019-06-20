@@ -205,6 +205,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   groundCollider: {fileID: 649708233}
+  characterProperties:
+    name: WRITE HERE THE NAME
+    description: WRITE HERE THE DESCRIPTION
 --- !u!1 &385482341
 GameObject:
   m_ObjectHideFlags: 0

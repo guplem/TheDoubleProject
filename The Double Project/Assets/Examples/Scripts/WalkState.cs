@@ -10,12 +10,12 @@ public class WalkState : State
 
     public override void DoUpdate(float deltaTime)
     {
-        characterManager.movementController.MoveTowards(characterManager.brainController.brain.moveAxis);
+        characterManager.movementController.MoveTowards(characterManager.brainController.brain.moveAxis, new Vector2(0.5f, 0f), new Vector2(5f, 0f));
     }
 
     public override void DoFixedUpdate(float fixedDeltaTime)
     {
-
+        Debug.Log("Walk");
     }
 
 }

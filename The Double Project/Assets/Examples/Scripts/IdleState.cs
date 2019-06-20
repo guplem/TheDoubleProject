@@ -12,5 +12,6 @@ public class IdleState : State
 
     public override void DoFixedUpdate(float fixedDeltaTime)
     {
+        Debug.Log("Idle");
     }
 }

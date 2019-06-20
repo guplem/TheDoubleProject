@@ -7,5 +7,6 @@ public class PlayerInput : Brain
     public override void DecideAction()
     {
         moveAxis = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        jump.start = Input.GetButtonDown("Jump");
     }
 }
