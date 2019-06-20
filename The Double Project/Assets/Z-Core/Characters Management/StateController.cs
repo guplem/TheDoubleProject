@@ -27,13 +27,15 @@ public abstract class StateController
     public void SetBodyState(State state)
     {
         this.bodyState = state;
-        this.bodyState.DoStart(this.character);
+        this.bodyState.Initialize(this.character);
+        this.bodyState.DoStart();
     }
 
     public void SetLegsState(State state)
     {
         this.legsState = state;
-        this.legsState.DoStart(this.character);
+        this.legsState.Initialize(this.character);
+        this.legsState.DoStart();
     }
 
     public abstract State GetNextBodyState(bool forceExitCurrentState);

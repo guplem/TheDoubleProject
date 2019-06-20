@@ -14,11 +14,29 @@ public class MovementController
 
     public void MoveTowards(Vector2 direction, Vector2 acceleration, Vector2 maxVelocity)
     {
-        rb2d.velocity += new Vector2(Mathf.Clamp(acceleration.x * direction.x, -maxVelocity.x, maxVelocity.x), Mathf.Clamp(acceleration.y * direction.y, -maxVelocity.y, maxVelocity.y));
+        Vector2 velocity = rb2d.velocity;
+
+        velocity += new Vector2(acceleration.x * direction.x, acceleration.y * direction.y);
+        SetVelocity(new Vector2(Mathf.Clamp(velocity.x, -maxVelocity.x, maxVelocity.x), Mathf.Clamp(velocity.y, -maxVelocity.y, maxVelocity.y)));
     }
 
-    internal void Impulse(Vector2 force)
+    public void Impulse(Vector2 force)
     {
         rb2d.AddForce(force, ForceMode2D.Impulse);
     }
+
+    public void SetVelocity(Vector2 velocity)
+    {
+        rb2d.velocity = velocity;
+    }
+
+    public void SetHorVelocity(float hor)
+    {
+        SetVelocity(new Vector2(hor, rb2d.velocity.y));
+    }
+    public void SetVertVelocity(float vert)
+    {
+        SetVelocity(new Vector2(rb2d.velocity.x, vert));
+    }
+
 }

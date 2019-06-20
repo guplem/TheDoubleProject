@@ -10,7 +10,7 @@ public class ExampleStateController : StateController
         if (forceExitCurrentState)
             SetLegsState(null);
 
-        return new IdleState();
+        return defaultBodyState;
     }
 
     public override State GetNextLegsState(bool forceExitCurrentState)
@@ -21,6 +21,7 @@ public class ExampleStateController : StateController
         State nextState = null;
         if ((nextState = EnterJump()) != null) return nextState;
         if ((nextState = EnterWalk()) != null) return nextState;
+        if ((nextState = EnterOnAir()) != null) return nextState;
         if ((nextState = EnterIdle()) != null) return nextState;
 
 
@@ -40,7 +41,14 @@ public class ExampleStateController : StateController
         if (character.brainController.brain.moveAxis.x != 0)
             return null;
 
-        return new IdleState();
+        return new IdleLegsState();
+    }
+    private State EnterOnAir()
+    {
+        if (character.groundCollider.inContact)
+            return null;
+
+        return new OnAirState();
     }
 
     private State EnterJump()

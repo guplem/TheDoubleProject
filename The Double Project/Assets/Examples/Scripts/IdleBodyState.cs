@@ -2,10 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WalkState : State
+public class IdleBodyState : State
 {
-    public WalkState() {
-    }
 
 
     public override void DoUpdate(float deltaTime)
@@ -14,8 +12,7 @@ public class WalkState : State
 
     public override void DoFixedUpdate(float fixedDeltaTime)
     {
-        characterManager.movementController.MoveTowards(characterManager.brainController.brain.moveAxis, new Vector2(.5f, 0f), new Vector2(5, 40));
-        Debug.Log("Walk");
+        Debug.Log("Idle");
     }
 
     public override void DoStart()
@@ -24,5 +21,6 @@ public class WalkState : State
 
     public override void DoExit()
     {
+
     }
 }
