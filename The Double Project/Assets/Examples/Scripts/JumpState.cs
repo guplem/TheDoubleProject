@@ -14,9 +14,6 @@ public class JumpState : State
 
     public override void DoFixedUpdate(float fixedDeltaTime)
     {
-        
-        Debug.Log("JUMP fixed;");
-
     }
 
     public override void DoExit()
@@ -26,7 +23,5 @@ public class JumpState : State
 
     public override void DoUpdate(float deltaTime)
     {
-        Debug.Log("JUMP update;");
-
     }
 }
