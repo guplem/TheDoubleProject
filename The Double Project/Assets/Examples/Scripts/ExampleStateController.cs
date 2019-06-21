@@ -20,8 +20,8 @@ public class ExampleStateController : StateController
 
         State nextState = null;
         if ((nextState = EnterJump()) != null) return nextState;
-        if ((nextState = EnterWalk()) != null) return nextState;
         if ((nextState = EnterOnAir()) != null) return nextState;
+        if ((nextState = EnterWalk()) != null) return nextState;
         if ((nextState = EnterIdle()) != null) return nextState;
 
 
@@ -30,15 +30,26 @@ public class ExampleStateController : StateController
 
     private State EnterWalk()
     {
+        if (legsState.GetType() == typeof(JumpState))
+            return null;
+
         if (character.brainController.brain.moveAxis.x == 0)
+            return null;
+
+        if (!character.groundCollider.inContact)
             return null;
 
         return new WalkState();
     }
-
     private State EnterIdle()
     {
+        if (legsState.GetType() == typeof(JumpState))
+            return null;
+
         if (character.brainController.brain.moveAxis.x != 0)
+            return null;
+
+        if (!character.groundCollider.inContact)
             return null;
 
         return new IdleLegsState();
@@ -50,7 +61,6 @@ public class ExampleStateController : StateController
 
         return new OnAirState();
     }
-
     private State EnterJump()
     {
         if (!character.brainController.brain.jump.start)

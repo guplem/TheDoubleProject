@@ -16,7 +16,7 @@ public abstract class CharacterManager : MonoBehaviour
     public void Start()
     {
         soundController = new SoundController(gameObject);
-        characterVisualsController = new CharacterVisualsController();
+        characterVisualsController = new CharacterVisualsController(GetComponent<Animator>());
         DoStart();
     }
 
@@ -28,11 +28,20 @@ public abstract class CharacterManager : MonoBehaviour
         stateController.legsState.DoUpdate(Time.deltaTime);
         brainController.DoUpdate();
         stateController.SetBodyState(stateController.GetNextBodyState(false));
-        stateController.SetLegsState(stateController.GetNextLegsState(false));
+
+        State newLegsState = stateController.GetNextLegsState(false);
+        if(newLegsState.GetType() != stateController.legsState.GetType())
+            stateController.SetLegsState(newLegsState);
     }
 
     private void FixedUpdate()
     {
+
+        if (movementController.GetVelocity().x > 0)
+            transform.localScale = Vector3.one;
+        else if (movementController.GetVelocity().x < 0)
+            transform.localScale = new Vector3(-1, 1, 1);
+
         stateController.bodyState.DoFixedUpdate(Time.fixedDeltaTime);
         stateController.legsState.DoFixedUpdate(Time.fixedDeltaTime);
     }

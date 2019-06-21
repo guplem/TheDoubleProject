@@ -5,8 +5,8 @@ using UnityEngine.UI;
 
 public class DebugScreenController : MonoBehaviour
 {
-    [SerializeField] private Text debugTest;
-    [SerializeField] private CharacterManager character;
+    [SerializeField] private Text debugTest = null;
+    [SerializeField] private CharacterManager character = null;
 
     private void Update()
     {

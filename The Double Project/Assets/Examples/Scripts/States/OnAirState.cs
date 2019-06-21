@@ -18,6 +18,7 @@ public class OnAirState : State
 
     public override void DoStart()
     {
+        characterManager.characterVisualsController.SetTrigger("Jump");
     }
 
     public override void DoExit()
