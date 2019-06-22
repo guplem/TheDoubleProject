@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class OnAirState : State
 {
+    public override void DoStart()
+    {
+        characterManager.characterVisualsController.PlayAnimation("Jump");
+    }
+
     public override void DoUpdate(float deltaTime)
     {
     }
@@ -14,11 +19,6 @@ public class OnAirState : State
             characterManager.movementController.MoveTowards(characterManager.brainController.brain.moveAxis, new Vector2(.5f, 0f), new Vector2(5, 40));
         else
             characterManager.movementController.TargetVelocity(Vector2.zero, Vector2.right * 0.1f);
-    }
-
-    public override void DoStart()
-    {
-        characterManager.characterVisualsController.SetTrigger("Jump");
     }
 
     public override void DoExit()

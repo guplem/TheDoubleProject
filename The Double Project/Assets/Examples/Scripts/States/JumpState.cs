@@ -9,7 +9,6 @@ public class JumpState : State
     public override void DoStart()
     {
         characterManager.movementController.Impulse(Vector2.up * jumpForce);
-        //characterManager.characterVisualsController.SetTrigger("Jump");
     }
 
 

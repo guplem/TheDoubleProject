@@ -26,6 +26,16 @@ public abstract class StateController
 
     public void SetBodyState(State state)
     {
+        if (state == null)
+        {
+            Debug.LogWarning("The state trying to set a null state");
+            return;
+        }
+
+        if (this.bodyState.GetType() == state.GetType())
+            return;
+
+        this.bodyState.DoExit();
         this.bodyState = state;
         this.bodyState.Initialize(this.character);
         this.bodyState.DoStart();
@@ -33,6 +43,16 @@ public abstract class StateController
 
     public void SetLegsState(State state)
     {
+        if(state == null)
+        {
+            Debug.LogWarning("The state trying to set a null state");
+            return;
+        }
+
+        if (this.legsState.GetType() == state.GetType())
+            return;
+
+        this.legsState.DoExit();
         this.legsState = state;
         this.legsState.Initialize(this.character);
         this.legsState.DoStart();
