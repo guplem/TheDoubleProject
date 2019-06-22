@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WalkState : State
+public class RunState : State
 {
     public override void DoStart()
     {

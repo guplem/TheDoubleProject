@@ -20,7 +20,9 @@ public class ExampleStateController : StateController
 
         State nextState = null;
         if ((nextState = EnterJump()) != null) return nextState;
-        if ((nextState = EnterOnAir()) != null) return nextState;
+        if ((nextState = EnterAscending()) != null) return nextState;
+        if ((nextState = EnterDescending()) != null) return nextState;
+        //if ((nextState = EnterOnAir()) != null) return nextState;
         if ((nextState = EnterWalk()) != null) return nextState;
         if ((nextState = EnterCrouchWalk()) != null) return nextState;
         if ((nextState = EnterCrouchIdle()) != null) return nextState;
@@ -44,7 +46,7 @@ public class ExampleStateController : StateController
         if (!character.groundCollider.inContact)
             return null;
 
-        return new WalkState();
+        return new RunState();
     }
     private State EnterCrouchWalk()
     {
@@ -94,19 +96,12 @@ public class ExampleStateController : StateController
 
         return new CrouchIdleState();
     }
-    private State EnterOnAir()
-    {
-        if (character.groundCollider.inContact)
-            return null;
-
-        return new OnAirState();
-    }
     private State EnterJump()
     {
         if (character.brainController.brain.crouch.ongoing)
             return null;
 
-        if (!character.brainController.brain.jump.start)
+        if (!character.brainController.brain.jump.ongoing)
             return null;
 
         if (!character.groundCollider.inContact)
@@ -114,4 +109,27 @@ public class ExampleStateController : StateController
 
         return new JumpState();
     }
+
+    private State EnterAscending()
+    {
+        /*if (character.movementController.GetVelocity().y > 0 || ((legsState is JumpState) && !character.brainController.brain.jump.ongoing))
+            return new AscendingState();*/
+
+        if (character.movementController.GetVelocity().y <= 0 && (!(legsState is JumpState) || character.brainController.brain.jump.ongoing))
+            return null;
+
+        return new AscendingState();
+    }
+
+    private State EnterDescending()
+    {
+        if (character.movementController.GetVelocity().y >= 0)
+            return null;
+
+        if (character.groundCollider.inContact)
+            return null;
+
+        return new DescendingState();
+    }
+
 }

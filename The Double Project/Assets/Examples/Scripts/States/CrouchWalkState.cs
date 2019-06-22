@@ -6,7 +6,7 @@ public class CrouchWalkState : State
 {
     public override void DoStart()
     {
-        characterManager.characterVisualsController.PlayAnimation("Crouch_Run");
+        characterManager.characterVisualsController.PlayAnimation("Crouch_Walk");
     }
 
     public override void DoUpdate(float deltaTime)

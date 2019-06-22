@@ -15,11 +15,10 @@ public abstract class StateController
     {
         this.defaultBodyState = defaultBodyState;
         this.defaultLegsState = defaultLegsState;
-
-        this.bodyState = this.defaultBodyState;
-        this.legsState = this.defaultLegsState;
-
         this.character = character;
+
+        SetBodyState(this.defaultBodyState);
+        SetLegsState(this.defaultLegsState);
 
         return this;
     }
@@ -28,14 +27,18 @@ public abstract class StateController
     {
         if (state == null)
         {
-            Debug.LogWarning("The state trying to set a null state");
+            Debug.LogWarning("The state trying to set a null state",character.gameObject);
             return;
         }
 
-        if (this.bodyState.GetType() == state.GetType())
-            return;
+        if (this.bodyState != null)
+        {
+            if (this.bodyState.GetType() == state.GetType())
+                return;
 
-        this.bodyState.DoExit();
+            this.bodyState.DoExit();
+        }
+
         this.bodyState = state;
         this.bodyState.Initialize(this.character);
         this.bodyState.DoStart();
@@ -49,10 +52,14 @@ public abstract class StateController
             return;
         }
 
-        if (this.legsState.GetType() == state.GetType())
-            return;
+        if (this.legsState != null)
+        {
+            if (this.legsState.GetType() == state.GetType())
+                return;
 
-        this.legsState.DoExit();
+            this.legsState.DoExit();
+        }
+
         this.legsState = state;
         this.legsState.Initialize(this.character);
         this.legsState.DoStart();

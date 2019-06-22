@@ -4,11 +4,10 @@ using UnityEngine;
 
 public class JumpState : State
 {
-    private float jumpForce = 5f;
+    private float jumpForce = 10f;
 
     public override void DoStart()
     {
-        characterManager.movementController.Impulse(Vector2.up * jumpForce);
     }
 
 
@@ -18,6 +17,8 @@ public class JumpState : State
 
     public override void DoExit()
     {
+        characterManager.movementController.Impulse(Vector2.up * jumpForce);
+        
     }
     
 

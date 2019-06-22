@@ -7,6 +7,11 @@ public abstract class State
 {
     public CharacterManager characterManager { get; private set; }
     public void Initialize(CharacterManager characterManager) {
+        if(!characterManager)
+        {
+            Debug.LogWarning("Trying to initialize state " + this.GetType() + " with null characterManager");
+        }
+
         this.characterManager = characterManager;
     }
 

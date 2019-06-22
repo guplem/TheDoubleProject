@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class OnAirState : State
+public class AscendingState : State
 {
     public override void DoStart()
     {
-        characterManager.characterVisualsController.PlayAnimation("Jump");
+        characterManager.characterVisualsController.PlayAnimation("Ascending");
     }
 
     public override void DoUpdate(float deltaTime)
