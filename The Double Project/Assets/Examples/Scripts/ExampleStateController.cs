@@ -54,7 +54,7 @@ public class ExampleStateController : StateController
         if (character.brainController.brain.moveAxis.x == 0)
             return null;
 
-        if (character.brainController.brain.crouch.ended)
+        if (!character.brainController.brain.crouch.ongoing)
             return null;
 
         if (!character.groundCollider.inContact)
@@ -86,7 +86,7 @@ public class ExampleStateController : StateController
         if (character.brainController.brain.moveAxis.x != 0)
             return null;
 
-        if (character.brainController.brain.crouch.ended)
+        if (!character.brainController.brain.crouch.ongoing)
             return null;
 
         if (!character.groundCollider.inContact)
