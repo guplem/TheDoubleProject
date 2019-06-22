@@ -8,5 +8,7 @@ public class PlayerInput : Brain
     {
         moveAxis = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxis("Vertical"));
         jump.start = Input.GetButtonDown("Jump");
+        crouch.ongoing = Input.GetButton("Crouch");
+        crouch.ended = !Input.GetButton("Crouch");
     }
 }

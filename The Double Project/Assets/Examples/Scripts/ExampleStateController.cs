@@ -22,6 +22,8 @@ public class ExampleStateController : StateController
         if ((nextState = EnterJump()) != null) return nextState;
         if ((nextState = EnterOnAir()) != null) return nextState;
         if ((nextState = EnterWalk()) != null) return nextState;
+        if ((nextState = EnterCrouchWalk()) != null) return nextState;
+        if ((nextState = EnterCrouchIdle()) != null) return nextState;
         if ((nextState = EnterIdle()) != null) return nextState;
 
 
@@ -36,10 +38,29 @@ public class ExampleStateController : StateController
         if (character.brainController.brain.moveAxis.x == 0)
             return null;
 
+        if (character.brainController.brain.crouch.ongoing)
+            return null;
+
         if (!character.groundCollider.inContact)
             return null;
 
         return new WalkState();
+    }
+    private State EnterCrouchWalk()
+    {
+        if (legsState.GetType() == typeof(JumpState))
+            return null;
+
+        if (character.brainController.brain.moveAxis.x == 0)
+            return null;
+
+        if (character.brainController.brain.crouch.ended)
+            return null;
+
+        if (!character.groundCollider.inContact)
+            return null;
+
+        return new CrouchWalkState();
     }
     private State EnterIdle()
     {
@@ -49,10 +70,29 @@ public class ExampleStateController : StateController
         if (character.brainController.brain.moveAxis.x != 0)
             return null;
 
+        if (character.brainController.brain.crouch.ongoing)
+            return null;
+
         if (!character.groundCollider.inContact)
             return null;
 
         return new IdleLegsState();
+    }
+    private State EnterCrouchIdle()
+    {
+        if (legsState.GetType() == typeof(JumpState))
+            return null;
+
+        if (character.brainController.brain.moveAxis.x != 0)
+            return null;
+
+        if (character.brainController.brain.crouch.ended)
+            return null;
+
+        if (!character.groundCollider.inContact)
+            return null;
+
+        return new CrouchIdleState();
     }
     private State EnterOnAir()
     {
@@ -63,6 +103,9 @@ public class ExampleStateController : StateController
     }
     private State EnterJump()
     {
+        if (character.brainController.brain.crouch.ongoing)
+            return null;
+
         if (!character.brainController.brain.jump.start)
             return null;
 
